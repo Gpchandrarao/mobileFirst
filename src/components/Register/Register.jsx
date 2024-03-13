@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ const Register = () => {
     setUsername(e.target.value);
   };
 
-  const successed = () => {
+  const successed = (token) => {
     navigate("/");
   };
 
@@ -30,12 +31,17 @@ const Register = () => {
     const userDetails = { username, password };
     const options = {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(userDetails),
     };
     try {
       const response = await fetch(apiUrl, options);
-      if (response.ok) {
-        successed();
+      console.log(response.ok);
+      if (response.ok === true) {
+        const data = await response.json();
+        successed(data.jwt_token);
       } else {
         failure();
       }

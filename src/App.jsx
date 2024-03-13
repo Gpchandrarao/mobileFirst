@@ -7,8 +7,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Register />} />
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
