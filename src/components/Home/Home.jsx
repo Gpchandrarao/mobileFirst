@@ -13,7 +13,6 @@ const Home = () => {
     try {
       const response = await fetch(jokeUrl);
       const data = await response.json();
-      console.log(data);
       const formatedData = data.jokes.map((each) => ({
         category: each.category,
         type: each.type,
@@ -32,7 +31,7 @@ const Home = () => {
       {jokes.map((eachJoke, index) => {
         return (
           <li key={index}>
-            <table class="table " key={index}>
+            <table className="table " key={index}>
               <thead>
                 <tr>
                   <th
@@ -43,7 +42,7 @@ const Home = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-transparent rounded w-100">
+              <tbody className="bg-transparent rounded w-100">
                 <tr>
                   <td className="bg-secondary text-white font-weight-bolder">
                     {eachJoke.joke}

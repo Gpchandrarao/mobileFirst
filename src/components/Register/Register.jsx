@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -16,13 +16,6 @@ const Register = () => {
     setUsername(e.target.value);
   };
 
-  const successed = (token) => {
-    navigate("/");
-  };
-
-  const failure = () => {
-    navigate("/login");
-  };
   const heandelSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,12 +31,12 @@ const Register = () => {
     };
     try {
       const response = await fetch(apiUrl, options);
+      const data = await response.json();
       console.log(response.ok);
       if (response.ok === true) {
-        const data = await response.json();
-        successed(data.jwt_token);
+        navigate("/login");
       } else {
-        failure();
+        navigate("/");
       }
     } catch (error) {
       console.log("ERROR: " + error);
@@ -56,15 +49,15 @@ const Register = () => {
         className="d-flex flex-column  p-5 rounded h-100 w-25 shadow-lg bg-transparent"
         onSubmit={heandelSubmit}
       >
-        <h1 className="text-center font-weight-bolder text-monospace">
-          Regisset
+        <h1 className="text-center text-white font-weight-bolder text-monospace">
+          Register
         </h1>
         <div className="mb-3">
           <label
             htmlFor="exampleInputEmail1"
             className="form-label font-weight-bold"
           >
-            <h5>Username</h5>
+            <h5 className="text-white">Username</h5>
           </label>
           <input
             type="text"
@@ -79,7 +72,7 @@ const Register = () => {
             htmlFor="exampleInputPassword1"
             className="form-label font-weight-bold"
           >
-            <h5>Password</h5>
+            <h5 className="text-white">Password</h5>
           </label>
           <input
             type="password"
